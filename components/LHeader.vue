@@ -1,12 +1,19 @@
 <template>
-    <header>
-        <nuxt-link to="/" class="header-child logo">
+    <header class="bg-stone-800 text-white flex fixed items-center justify-between top-0 left-0 w-full h-20 z-40">
+        <nuxt-link to="/" class="flex items-center h-full max-h-20 my-0 mx-5 z-40 mt-5">
             <img src="@/assets/images/logo.png" alt="logo" height="90" width="90" />
         </nuxt-link>
-        <div class="header-child">
-            <nav v-if="!mobile || menuOpened" class="nav" :class="{ 'nav--desktop': !mobile, 'nav--mobile': mobile }">
+        <div class="flex items-center h-full max-h-20 my-0 mx-5">
+            <nav
+                v-if="!mobile || menuOpened"
+                class="fixed top-24 left-0 w-full h-full lg:relative lg:top-auto lg:left-auto lg:w-auto"
+            >
                 <transition name="slide-down">
-                    <ul v-show="!mobile || ulOpened" @click="openMenu">
+                    <ul
+                        v-show="!mobile || ulOpened"
+                        class="bg-stone-800 h-auto absolute left-0 right-0 z-40 lg:flex lg:h-full lg:relative lg:left-auto lg:right-auto"
+                        @click="openMenu"
+                    >
                         <nuxt-link
                             v-for="(item, i) in menuItems"
                             :key="i"
@@ -14,16 +21,22 @@
                             v-slot="{ navigate, isExactActive }"
                             custom
                         >
-                            <li :class="{ active: isExactActive }" @click="navigate">{{ item.name }}</li>
+                            <li
+                                class="active:bg-green-600 hover:bg-green-600 hover:bg-opacity-50 flex items-center cursor-pointer pl-2.5 h-10 text-xl lg:py-0 lg:px-2.5 lg:h-auto lg:text-2xl"
+                                :class="{ active: isExactActive }"
+                                @click="navigate"
+                            >
+                                {{ item.name }}
+                            </li>
                         </nuxt-link>
                     </ul>
                 </transition>
                 <transition name="opacity">
-                    <div v-show="ulOpened" class="nav__blur" @click="openMenu"></div>
+                    <div v-show="ulOpened" class="h-full z-30" @click="openMenu"></div>
                 </transition>
             </nav>
-            <div v-if="mobile || true" class="hamburger-menu" @click="openMenu">
-                <base-icon iconName="MenuIcon" iconColor="pink" height="86" width="86">
+            <div v-if="mobile" class="cursor-pointer py-4 px-2.5" @click="openMenu">
+                <base-icon iconName="MenuIcon" iconColor="pink">
                     <menu-icon></menu-icon>
                 </base-icon>
             </div>
@@ -85,98 +98,10 @@ export default {
 </script>
 
 <style scoped>
-/* header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    background: #222;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    color: #fff;
-    z-index: 99;
-}
-
-.header-child {
-    margin: 0 20px;
-    display: flex;
-    align-items: center;
-    max-height: 70px;
-    height: 100%;
-}
-
-.logo {
-    margin-top: 20px;
-    z-index: 99;
-}
-
-.hamburger-menu {
-    cursor: pointer;
-    padding: 17px 10px;
-}
-
+/*
 .nav {
-    ul {
-        height: 100%;
-        z-index: 99;
-    }
-
-    li {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        &.active {
-            background: var(--color-main);
-        }
-
-        &:hover {
-            background: var(--color-main-opacity5);
-        }
-    }
-
-    &--desktop {
-        height: 100%;
-
-        ul {
-            display: flex;
-        }
-
-        li {
-            padding: 0 10px;
-            font-size: 22px;
-        }
-    }
-
-    &--mobile {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        ul {
-            background: #222;
-            height: auto;
-            position: absolute;
-            left: 0;
-            right: 0;
-        }
-
-        li {
-            padding-left: 10px;
-            height: 40px;
-            font-size: 20px;
-        }
-    }
-
     &__blur {
-        height: 100%;
-        // filter: blur(10px);
         background: content-box linear-gradient(var(--color-second), var(--color-main-opacity5));
-        z-index: 90;
     }
 } */
 </style>

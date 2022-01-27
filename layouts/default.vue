@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
+    <div id="app" class="text-stone-900 bg-white dark:text-white dark:bg-stone-500">
         <l-header></l-header>
 
-        <div class="content">
+        <div class="flex pt-20 w-full">
             <nuxt class="page-inner" />
         </div>
 
@@ -17,13 +17,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+:root {
+    --main-color: '#00a14f';
+}
 /* .content {
-    display: flex;
-    padding-top: 70px;
 
     &--mobile {
-        width: 100%;
         min-height: max-content;
     }
 
