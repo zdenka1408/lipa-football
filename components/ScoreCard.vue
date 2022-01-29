@@ -26,9 +26,11 @@
 <script>
 import { mapState } from 'vuex';
 import CloserIcon from '@/components/icons/CloserIcon';
+import helpers from '@/helpers';
 
 export default {
     name: 'ScoreCard',
+    mixins: [helpers],
     props: {
         game: { type: Object, default: () => {} },
     },
@@ -40,9 +42,6 @@ export default {
         },
         awayTeam() {
             return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.game.awayTeamId)];
-        },
-        isMobile() {
-            return false;
         },
     },
 };

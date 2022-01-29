@@ -1,6 +1,6 @@
 <template>
-    <div class="history" :class="{ 'mobile-edge-padding': isMobile, 'history--desktop': !isMobile }">
-        <div class="page-title" :class="{ 'page-title--desktop': !isMobile }">Historie</div>
+    <div class="history" :class="{ 'mobile-edge-padding': isMobile }">
+        <div class="page-title">Historie</div>
         <l-tabs></l-tabs>
 
         <transition name="opacity">
@@ -21,8 +21,11 @@
 </template>
 
 <script>
+import helpers from '@/helpers';
+
 export default {
     name: 'history',
+    mixins: [helpers],
     data() {
         return {
             games: [
@@ -54,11 +57,6 @@ export default {
             selectedGame: null,
             delay: false,
         };
-    },
-    computed: {
-        isMobile() {
-            return false;
-        },
     },
     methods: {
         liClick(game) {

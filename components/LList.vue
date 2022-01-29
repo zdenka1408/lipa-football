@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul class="w-full">
         <slot></slot>
     </ul>
 </template>
@@ -9,9 +9,3 @@ export default {
     name: 'LList',
 };
 </script>
-
-<style scoped>
-ul {
-    width: 100%;
-}
-</style>

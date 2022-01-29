@@ -1,5 +1,8 @@
 <template>
-    <component :blok="story.content" :is="story.content.component"></component>
+    <div>
+        <l-hero :nextGame="game"></l-hero>
+        <component :blok="story.content" :is="story.content.component"></component>
+    </div>
 </template>
 
 <script>
@@ -8,6 +11,13 @@ export default {
     data() {
         return {
             story: { content: {} },
+            game: {
+                date: new Date(2022, 9, 25, 15, 45, 0),
+                homeTeamId: 0,
+                awayTeamId: 1,
+                score: { homeTeam: 0, awayTeam: 0 },
+                description: '',
+            },
         };
     },
     mounted() {

@@ -5,13 +5,13 @@
         </nuxt-link>
         <div class="flex items-center h-full max-h-20 my-0 mx-5">
             <nav
-                v-if="!mobile || menuOpened"
-                class="fixed top-24 left-0 w-full h-full lg:relative lg:top-auto lg:left-auto lg:w-auto"
+                v-if="!isMobile || menuOpened"
+                class="fixed top-20 left-0 w-full h-full lg:relative lg:top-auto lg:left-auto lg:w-auto"
             >
                 <transition name="slide-down">
                     <ul
-                        v-show="!mobile || ulOpened"
-                        class="bg-stone-800 h-auto absolute left-0 right-0 z-40 lg:flex lg:h-full lg:relative lg:left-auto lg:right-auto"
+                        v-show="!isMobile || ulOpened"
+                        class="bg-stone-800 h-auto absolute left-0 right-0 z-40 py-5 lg:flex lg:py-0 lg:h-full lg:relative lg:left-auto lg:right-auto"
                         @click="openMenu"
                     >
                         <nuxt-link
@@ -22,7 +22,7 @@
                             custom
                         >
                             <li
-                                class="active:bg-green-600 hover:bg-green-600 hover:bg-opacity-50 flex items-center cursor-pointer pl-2.5 h-10 text-xl lg:py-0 lg:px-2.5 lg:h-auto lg:text-2xl"
+                                class="active:bg-green-600 hover:bg-green-600 hover:bg-opacity-50 flex items-center cursor-pointer pl-2.5 py-6 h-10 text-xl lg:py-0 lg:px-2.5 lg:h-auto lg:text-2xl"
                                 :class="{ active: isExactActive }"
                                 @click="navigate"
                             >
@@ -32,11 +32,11 @@
                     </ul>
                 </transition>
                 <transition name="opacity">
-                    <div v-show="ulOpened" class="h-full z-30" @click="openMenu"></div>
+                    <div v-show="ulOpened" class="h-full z-30 bg-green-100 bg-opacity-70" @click="openMenu"></div>
                 </transition>
             </nav>
-            <div v-if="mobile" class="cursor-pointer py-4 px-2.5" @click="openMenu">
-                <base-icon iconName="MenuIcon" iconColor="pink">
+            <div v-if="isMobile" class="cursor-pointer py-4 px-2.5" @click="openMenu">
+                <base-icon iconName="MenuIcon" iconColor="#ffffff" height="32" width="32">
                     <menu-icon></menu-icon>
                 </base-icon>
             </div>
@@ -46,9 +46,11 @@
 
 <script>
 import MenuIcon from '@/components/icons/MenuIcon';
+import helpers from '@/helpers';
 
 export default {
     name: 'LHeader',
+    mixins: [helpers],
     components: { MenuIcon },
     data() {
         return {
@@ -64,14 +66,9 @@ export default {
             inTransition: false,
         };
     },
-    computed: {
-        mobile() {
-            return false;
-        },
-    },
     methods: {
         openMenu() {
-            if (this.inTransition || !this.mobile) return;
+            if (this.inTransition || !this.isMobile) return;
             this.inTransition = true;
 
             if (this.menuOpened) {
@@ -98,10 +95,35 @@ export default {
 </script>
 
 <style scoped>
-/*
-.nav {
-    &__blur {
-        background: content-box linear-gradient(var(--color-second), var(--color-main-opacity5));
-    }
-} */
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition-property: clip;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slide-down-enter,
+.slide-down-leave-to {
+    clip: rect(auto, auto, 0, auto);
+}
+
+.slide-down-enter-to,
+.slide-down-leave {
+    clip: rect(auto, auto, 200px, auto);
+}
+
+.opacity-enter-active,
+.opacity-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.opacity-enter,
+.opacity-leave-to {
+    opacity: 0;
+}
+
+.opacity-enter-to,
+.opacity-leave {
+    opacity: 1;
+}
 </style>

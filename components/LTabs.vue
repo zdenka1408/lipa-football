@@ -1,6 +1,8 @@
 <template>
-    <ul>
-        <li v-for="(tab, i) in tabs" :key="i" :class="{ active: i === activeTab }" @click="onClick(i)">{{ tab }}</li>
+    <ul class="">
+        <li class="" v-for="(tab, i) in tabs" :key="i" :class="{ active: i === activeTab }" @click="onClick(i)">
+            {{ tab }}
+        </li>
     </ul>
 </template>
 
