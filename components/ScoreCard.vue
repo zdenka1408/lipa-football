@@ -8,7 +8,7 @@
 
         <div class="card__title">Výsledková listina</div>
 
-        <div class="card__result" :class="{ 'card__result--desktop': !isMobile }">
+        <div class="card__result" :class="{ 'card__result--desktop': !isMobile() }">
             <img :src="require('@/assets/images/teams/' + homeTeam.logo)" alt="home team logo" />
             <div>{{ game.score.homeTeam }} - {{ game.score.awayTeam }}</div>
             <img :src="require('@/assets/images/teams/' + awayTeam.logo)" alt="away team logo" />

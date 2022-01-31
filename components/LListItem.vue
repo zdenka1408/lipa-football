@@ -1,16 +1,21 @@
 <template>
-    <li v-if="homeTeam && awayTeam">
-        <div class="team team--home">
-            <img :src="require('@/assets/images/teams/' + homeTeam.logo)" alt="home team logo" />
-            <span v-if="!isMobile">{{ homeTeam.name }}</span>
+    <li
+        class="flex justify-between p-3 cursor-pointer border-b last:border-b-0 border-green-600 active:bg-green-600 hover:bg-green-600 active:bg-opacity-75 hover:bg-opacity-50"
+        v-if="homeTeam && awayTeam"
+    >
+        <div class="flex items-center w-1/3 justify-start team team--home">
+            <img class="w-10 h-10" :src="require('@/assets/images/teams/' + homeTeam.logo)" alt="home team logo" />
+            <span class="text-lg my-0 mx-3.5" v-if="!isMobile()">{{ homeTeam.name }}</span>
         </div>
-        <div class="stats">
-            <div class="stats__score">{{ game.score.homeTeam }} - {{ game.score.awayTeam }}</div>
-            <div class="stats__date">{{ $prettyDate(game.date) }}</div>
+        <div class="flex flex-col items-center w-2/5 font-semibold stats">
+            <div class="text-lg flex flex-col items-center w-2/5 stats__score">
+                {{ game.score.homeTeam }} - {{ game.score.awayTeam }}
+            </div>
+            <div class="text-lg flex flex-col items-center w-2/5 stats__date">{{ $prettyDate(game.date) }}</div>
         </div>
-        <div class="team team--away">
-            <span v-if="!isMobile">{{ awayTeam.name }}</span>
-            <img :src="require('@/assets/images/teams/' + awayTeam.logo)" alt="away team logo" />
+        <div class="flex items-center w-1/3 justify-end team team--away">
+            <span class="text-lg my-0 mx-3.5" v-if="!isMobile()">{{ awayTeam.name }}</span>
+            <img class="w-10 h-10" :src="require('@/assets/images/teams/' + awayTeam.logo)" alt="away team logo" />
         </div>
     </li>
 </template>
@@ -36,58 +41,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-/* li {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px;
-    border-bottom: 1px solid var(--color-main-opacity2);
-    cursor: pointer;
-
-    &:active,
-    &:hover {
-        background: var(--color-main-opacity2);
-    }
-
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.team {
-    display: flex;
-    align-items: center;
-    width: 30%;
-
-    img {
-        width: 40px;
-        height: 40px;
-    }
-
-    span {
-        font-size: 18px;
-        margin: 0 14px;
-    }
-
-    &--home {
-        justify-content: flex-start;
-    }
-
-    &--away {
-        justify-content: flex-end;
-    }
-}
-
-.stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-
-    &__score {
-        font-size: 22px;
-        font-weight: 600;
-    }
-} */
-</style>

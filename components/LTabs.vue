@@ -1,6 +1,12 @@
 <template>
-    <ul class="">
-        <li class="" v-for="(tab, i) in tabs" :key="i" :class="{ active: i === activeTab }" @click="onClick(i)">
+    <ul class="flex w-full mt-5 mb-6">
+        <li
+            class="flex items-center justify-center cursor-pointer text-lg w-1/3 py-1 hover:border-b-2 hover:border-green-600 hover:border-opacity-20"
+            v-for="(tab, i) in tabs"
+            :key="i"
+            :class="{ 'border-b-2 border-green-600 hover:border-opacity-100': i === pageActiveTabs[page] }"
+            @click="onClick(i)"
+        >
             {{ tab }}
         </li>
     </ul>
@@ -16,39 +22,15 @@ export default {
         };
     },
     computed: {
-        ...mapState(['activeTab']),
+        ...mapState(['pageActiveTabs']),
+        page() {
+            return this.$route.name;
+        },
     },
     methods: {
         onClick(i) {
-            this.$store.commit('activeTab', i);
+            this.$store.commit('setActiveTab', { page: this.page, tab: i });
         },
     },
 };
 </script>
-
-<style scoped>
-/* ul {
-    display: flex;
-    width: 100%;
-    margin: 18px 0 24px 0;
-}
-
-li {
-    color: var(--color-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    width: calc(100% / 3);
-    padding: 4px 0;
-
-    &.active {
-        border-bottom: 1px solid var(--color-main);
-    }
-
-    &:hover {
-        border-bottom: 1px solid var(--color-main-opacity5);
-    }
-} */
-</style>

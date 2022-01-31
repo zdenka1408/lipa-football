@@ -3,12 +3,17 @@ export const state = () => ({
         { name: 'TJ Sokol Lipa', logo: 'lipa.png', roster: {}, id: 0 },
         { name: 'FCSS', logo: 'fcss.jpg', roster: {}, id: 1 },
     ],
-    activeTab: 0,
+    pageActiveTabs: {
+        history: 0,
+        gallery: 0,
+        matches: 0,
+        teams: 0,
+    },
 });
 
 export const mutations = {
-    activeTab(state, t) {
-        state.activeTab = t;
+    setActiveTab(state, obj) {
+        state.pageActiveTabs[obj.page] = obj.tab;
     },
 };
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="history" :class="{ 'mobile-edge-padding': isMobile }">
+    <div class="flex flex-col pb-48 items-center history" :class="{ 'mobile-edge-padding': isMobile() }">
         <div class="page-title">Historie</div>
         <l-tabs></l-tabs>
 
@@ -74,17 +74,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-/* .history {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 200px;
-
-    &--desktop {
-        .history__title {
-        }
-    }
-} */
-</style>
