@@ -94,37 +94,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.slide-down-enter-active,
-.slide-down-leave-active {
-    transition-property: clip;
-    transition-duration: 0.5s;
-    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.slide-down-enter,
-.slide-down-leave-to {
-    clip: rect(auto, auto, 0, auto);
-}
-
-.slide-down-enter-to,
-.slide-down-leave {
-    clip: rect(auto, auto, 200px, auto);
-}
-
-.opacity-enter-active,
-.opacity-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.opacity-enter,
-.opacity-leave-to {
-    opacity: 0;
-}
-
-.opacity-enter-to,
-.opacity-leave {
-    opacity: 1;
-}
-</style>
