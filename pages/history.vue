@@ -1,51 +1,17 @@
 <template>
     <div class="flex flex-col pb-48 items-center history">
-        <div class="page-title">Historie</div>
+        <div class="page-title"></div>
         <l-tabs></l-tabs>
 
         <l-list>
             <l-list-item v-for="(game, i) in games" :key="i" :game="game" @click.native="liClick(game)"></l-list-item>
         </l-list>
 
-        <transition name="opacity">
-            <l-popup v-if="selectedGame" @close="closePopup">
-                <template v-slot:title>Výsledková listina</template>
-                <template v-slot:content>
-                    <div>
-                        <div
-                            class="flex justify-between items-center text-5xl p-5 font-semibold bg-green-300 opacity-75"
-                        >
-                            <img
-                                class="w-1/5 max-w-40 shadow-md"
-                                :src="require('@/assets/images/teams/' + homeTeam.logo)"
-                                alt="home team logo"
-                            />
-                            <div>{{ selectedGame.score.homeTeam }} - {{ selectedGame.score.awayTeam }}</div>
-                            <img
-                                class="w-1/5 max-w-40 shadow-md"
-                                :src="require('@/assets/images/teams/' + awayTeam.logo)"
-                                alt="away team logo"
-                            />
-                        </div>
-
-                        <div class="flex justify-center text-xl font-semibold py-5">
-                            {{ $prettyDate(selectedGame.date) }}
-                        </div>
-
-                        <div class="px-5 pb-5">
-                            <span class="text-xl font-semibold">Záznam zápasu:</span>
-                            <p class="text-justify px-5">{{ selectedGame.description }}</p>
-                        </div>
-                    </div>
-                </template>
-            </l-popup>
-        </transition>
+        <score-card v-if="selectedGame" :game="selectedGame" @close="selectedGame = null"></score-card>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
     name: 'history',
     data() {
@@ -79,21 +45,7 @@ export default {
             selectedGame: null,
         };
     },
-    computed: {
-        ...mapState(['leagueTeams']),
-        homeTeam() {
-            return (
-                this.selectedGame &&
-                this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.selectedGame.homeTeamId)]
-            );
-        },
-        awayTeam() {
-            return (
-                this.selectedGame &&
-                this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.selectedGame.awayTeamId)]
-            );
-        },
-    },
+
     methods: {
         liClick(game) {
             this.selectedGame = game;
