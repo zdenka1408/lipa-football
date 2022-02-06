@@ -57,10 +57,10 @@ export default {
         return {
             menuItems: [
                 { name: 'Home', url: '/' },
+                { name: 'Sezóna', url: '/season' },
+                { name: 'Fotogalerie', url: '/gallery' },
                 { name: 'Týmy', url: '/teams' },
                 { name: 'Historie', url: '/history' },
-                { name: 'Fotogalerie', url: '/gallery' },
-                { name: 'Zápasy', url: '/matches' },
             ],
             menuOpened: false,
             ulOpened: false,

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="fixed left-0 right-0 top-18 flex flex-col justify-end text-white h-2/5 lg:h-2/3 bg-no-repeat bg-center bg-cover bg-[url('/hero.jpg')]"
+        class="flex flex-col justify-end text-white h-4/5 lg:h-96 bg-no-repeat bg-center bg-cover bg-[url('/hero.jpg')]"
     >
         <div v-if="showTime && isMobile()" class="flex items-center justify-center h-28 lg:h-32 font-bold text-4xl">
             <span class="fuzz">{{ days }}:{{ hours }}:{{ minutes }}:{{ seconds }}</span>

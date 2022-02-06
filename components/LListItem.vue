@@ -8,7 +8,7 @@
             <span class="text-lg my-0 mx-3.5" v-if="!isMobile()">{{ homeTeam.name }}</span>
         </div>
         <div class="flex flex-col items-center w-2/5 font-semibold stats">
-            <div class="text-lg flex flex-col items-center w-2/5 stats__score">
+            <div class="text-lg flex flex-col items-center w-2/5 stats__score" v-if="!isFutureGame">
                 {{ game.score.homeTeam }} - {{ game.score.awayTeam }}
             </div>
             <div class="text-lg flex flex-col items-center w-2/5 stats__date">{{ $prettyDate(game.date) }}</div>
@@ -37,6 +37,9 @@ export default {
         },
         awayTeam() {
             return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.game.awayTeamId)];
+        },
+        isFutureGame() {
+            return new Date().getTime() - new Date(this.game.date).getTime() < 0;
         },
     },
 };

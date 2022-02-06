@@ -1,11 +1,13 @@
 <template>
-    <div>
+    <div class="">
         <l-hero :nextGame="game"></l-hero>
+        <l-schedule :games="fakeGames" @li-click="liClick"></l-schedule>
         <component :blok="story.content" :is="story.content.component"></component>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'Home',
     data() {
@@ -19,6 +21,14 @@ export default {
                 description: '',
             },
         };
+    },
+    computed: {
+        ...mapState(['fakeGames']),
+    },
+    methods: {
+        liClick(game) {
+            this.selectedGame = game;
+        },
     },
     mounted() {
         this.$storybridge(
