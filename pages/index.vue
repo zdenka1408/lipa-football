@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <l-hero :nextGame="game"></l-hero>
-        <l-schedule :games="fakeGames" @li-click="liClick"></l-schedule>
+        <l-schedule :games="fakeGames" :clickable="false"></l-schedule>
         <component :blok="story.content" :is="story.content.component"></component>
     </div>
 </template>
@@ -24,11 +24,6 @@ export default {
     },
     computed: {
         ...mapState(['fakeGames']),
-    },
-    methods: {
-        liClick(game) {
-            this.selectedGame = game;
-        },
     },
     mounted() {
         this.$storybridge(

@@ -1,6 +1,9 @@
 <template>
     <li
-        class="flex justify-between p-3 cursor-pointer border-b last:border-b-0 border-green-600 active:bg-green-600 hover:bg-green-600 active:bg-opacity-75 hover:bg-opacity-50"
+        class="flex justify-between p-3 border-b last:border-b-0 border-green-600"
+        :class="{
+            'active:bg-green-600 active:bg-opacity-75 hover:bg-green-600 hover:bg-opacity-50 cursor-pointer': clickable,
+        }"
         v-if="homeTeam && awayTeam"
     >
         <div class="flex items-center w-1/3 justify-start team team--home">
@@ -29,6 +32,7 @@ export default {
     mixins: [helpers],
     props: {
         game: { type: Object, default: () => {} },
+        clickable: { type: Boolean, default: true },
     },
     computed: {
         ...mapState(['leagueTeams']),

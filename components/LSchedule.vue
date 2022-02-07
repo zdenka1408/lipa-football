@@ -4,7 +4,8 @@
             v-for="(game, i) in games"
             :key="i"
             :game="game"
-            @click.native="$emit('li-click', game)"
+            :clickable="clickable"
+            @click.native="clickable ? $store.commit('setSelectedGame', game) : null"
         ></l-list-item>
     </l-list>
 </template>
@@ -14,6 +15,7 @@ export default {
     name: 'LSchedule',
     props: {
         games: { type: Array, default: () => [] },
+        clickable: { type: Boolean, default: true },
     },
 };
 </script>

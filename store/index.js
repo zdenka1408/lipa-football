@@ -9,6 +9,7 @@ export const state = () => ({
         matches: 0,
         teams: 0,
     },
+    selectedGame: null,
     fakeGames: [
         {
             date: new Date(2021, 9, 25, 15, 45, 0),
@@ -40,6 +41,9 @@ export const state = () => ({
 export const mutations = {
     setActiveTab(state, obj) {
         state.pageActiveTabs[obj.page] = obj.tab;
+    },
+    setSelectedGame(state, game) {
+        state.selectedGame = game;
     },
 };
 
