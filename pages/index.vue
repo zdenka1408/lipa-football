@@ -1,8 +1,7 @@
 <template>
     <div class="">
-        <l-hero :nextGame="game"></l-hero>
+        <component :blok="story.content" :is="story.content.component" class="text-black"></component>
         <l-schedule :games="fakeGames" :clickable="false"></l-schedule>
-        <component :blok="story.content" :is="story.content.component"></component>
     </div>
 </template>
 

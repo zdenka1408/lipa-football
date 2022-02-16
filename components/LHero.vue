@@ -1,6 +1,7 @@
 <template>
     <div
-        class="flex flex-col justify-end text-white h-4/5 lg:h-96 bg-no-repeat bg-center bg-cover bg-[url('/hero.jpg')]"
+        class="flex flex-col justify-end text-white h-4/5 lg:h-96 bg-no-repeat bg-center bg-cover"
+        :style="{ backgroundImage: 'url(' + heroImage + ')' }"
     >
         <div v-if="showTime && isMobile()" class="flex items-center justify-center h-28 lg:h-32 font-bold text-4xl">
             <span class="fuzz">{{ days }}:{{ hours }}:{{ minutes }}:{{ seconds }}</span>
@@ -44,15 +45,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import helpers from '@/helpers';
 
 export default {
     name: 'LHero',
     mixins: [helpers],
-    props: {
-        nextGame: { type: Object, required: true },
-    },
+    props: ['blok'],
     data() {
         return {
             nextGameDateTime: null,
@@ -66,11 +65,16 @@ export default {
     },
     computed: {
         ...mapState(['leagueTeams']),
+        ...mapGetters(['nextGame']),
+        heroImage() {
+            const image = this.blok.content.find((c) => c.component === 'image');
+            return image?.image?.filename;
+        },
         homeTeam() {
-            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.nextGame.homeTeamId)];
+            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === parseInt(this.nextGame.homeTeamId))];
         },
         awayTeam() {
-            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.nextGame.awayTeamId)];
+            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === parseInt(this.nextGame.awayTeamId))];
         },
         gameTime() {
             if (!this.nextGame || !this.nextGame.date) return null;
@@ -85,7 +89,6 @@ export default {
     mounted() {
         if (!this.nextGame || !this.nextGame.date) return;
         this.nextGameDateTime = new Date(this.nextGame.date).getTime();
-
         this.countingDown = setInterval(() => {
             const timeNow = new Date().getTime();
             const timeleft = this.nextGameDateTime - timeNow;
@@ -93,12 +96,10 @@ export default {
                 this.showTime = false;
                 clearInterval(this.countingDown);
             }
-
             this.days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
             this.hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             this.minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
             this.seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-
             if (!this.showTime) this.showTime = true;
         }, 1000);
     },
