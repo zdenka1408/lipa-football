@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <component :blok="story.content" :is="story.content.component" class="text-black"></component>
-        <l-schedule :games="fakeGames" :clickable="false"></l-schedule>
+        <!-- <l-schedule :games="upcomingGames" :clickable="false"></l-schedule> -->
     </div>
 </template>
 
@@ -22,7 +22,10 @@ export default {
         };
     },
     computed: {
-        ...mapState(['fakeGames']),
+        // ...mapState(['history']),
+        // upcomingGames() {
+        //     return this.history['A'][new Date().getFullYear()];
+        // },
     },
     mounted() {
         this.$storybridge(
@@ -48,15 +51,13 @@ export default {
         );
     },
     async asyncData(ctx) {
-        const fullSlug = ctx.route.path === '/' || ctx.route.path === '' ? 'home' : ctx.route.path;
-
-        const result = await ctx.app.$storyapi.get(`cdn/stories/${fullSlug}`, {
-            version: 'draft',
-        });
-
-        if (result?.data) {
-            return result.data;
-        }
+        // const fullSlug = ctx.route.path === '/' || ctx.route.path === '' ? 'home' : ctx.route.path;
+        // const result = await ctx.app.$storyapi.get(`cdn/stories/${fullSlug}`, {
+        //     version: 'draft',
+        // });
+        // if (result?.data) {
+        //     return result.data;
+        // }
     },
 };
 </script>

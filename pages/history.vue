@@ -2,7 +2,7 @@
     <div class="flex flex-col pb-48 items-center history">
         <div class="page-title"></div>
         <l-tabs></l-tabs>
-        <l-schedule :games="fakeGames"></l-schedule>
+        <!-- <l-schedule :games="games"></l-schedule> -->
     </div>
 </template>
 
@@ -10,9 +10,20 @@
 import { mapState } from 'vuex';
 
 export default {
-    name: 'history',
+    name: 'History',
+    data() {
+        return {
+            selectedYear: 2022,
+        };
+    },
     computed: {
-        ...mapState(['fakeGames']),
+        // ...mapState(['history', 'pageActiveTabs']),
+        // selectedTeam() {
+        //     this.pageActiveTabs[this.$route.name];
+        // },
+        // games() {
+        //     return this.history[this.selectedTeam][this.selectedYear];
+        // },
     },
 };
 </script>

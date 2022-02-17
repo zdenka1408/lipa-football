@@ -9,11 +9,11 @@
             <nuxt />
         </div>
 
-        <score-card
+        <!-- <score-card
             v-if="selectedGame"
             :game="selectedGame"
             @close="$store.commit('setSelectedGame', null)"
-        ></score-card>
+        ></score-card> -->
         <l-footer></l-footer>
     </div>
 </template>
@@ -23,9 +23,9 @@ import { mapState } from 'vuex';
 
 export default {
     name: 'default',
-    computed: {
-        ...mapState(['selectedGame']),
-    },
+    // computed: {
+    //     ...mapState(['selectedGame']),
+    // },
 };
 </script>
 
