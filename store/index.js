@@ -1,6 +1,11 @@
 import Vue from 'vue';
 
 export const state = () => ({
+    ourTeams: {
+        0: { name: 'Tym A' },
+        1: { name: 'Tym B' },
+        2: { name: 'Tym dorost' },
+    },
     leagueTeams: [
         { name: 'TJ Sokol Lipa', logo: 'lipa.png', roster: {}, id: 0 },
         { name: 'FCSS', logo: 'fcss.jpg', roster: {}, id: 1 },
@@ -8,7 +13,7 @@ export const state = () => ({
     pageActiveTabs: {
         history: 0,
         gallery: 0,
-        matches: 0,
+        season: 0,
         teams: 0,
     },
     history: [],
@@ -16,6 +21,19 @@ export const state = () => ({
 });
 
 export const getters = {
+    selectedTabTeam(state) {
+        if (!process.client) return;
+        const routeName = $nuxt.$router?.currentRoute?.name;
+        const selectedTab = state.pageActiveTabs[routeName];
+        return state.ourTeams[selectedTab]?.name || '';
+    },
+    currentSeasons(state) {
+        const dt = new Date();
+        const currentYear = dt.getFullYear();
+        const currentYearHistory = state.history.find((y) => y.year === currentYear.toString());
+
+        return currentYearHistory?.schedules || [];
+    },
     nextGame(state) {
         const dt = new Date();
         const currentYear = dt.getFullYear();

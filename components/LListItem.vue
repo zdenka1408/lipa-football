@@ -12,7 +12,7 @@
         </div>
         <div class="flex flex-col items-center w-2/5 font-semibold stats">
             <div class="text-lg flex flex-col items-center w-2/5 stats__score" v-if="!isFutureGame">
-                {{ game.score.homeTeam }} - {{ game.score.awayTeam }}
+                {{ game.homeTeamScore }} - {{ game.awayTeamScore }}
             </div>
             <div class="text-lg flex flex-col items-center w-2/5 stats__date">{{ $prettyDate(game.date) }}</div>
         </div>
@@ -37,10 +37,10 @@ export default {
     computed: {
         ...mapState(['leagueTeams']),
         homeTeam() {
-            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.game.homeTeamId)];
+            return this.leagueTeams.find((t) => t.id === parseInt(this.game.homeTeamId));
         },
         awayTeam() {
-            return this.leagueTeams[this.leagueTeams.findIndex((x) => x.id === this.game.awayTeamId)];
+            return this.leagueTeams.find((t) => t.id === parseInt(this.game.awayTeamId));
         },
         isFutureGame() {
             return new Date().getTime() - new Date(this.game.date).getTime() < 0;

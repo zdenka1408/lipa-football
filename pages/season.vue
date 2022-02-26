@@ -1,24 +1,24 @@
 <template>
     <div>
-        <!-- <div class="page-title"></div>
+        <div class="page-title"></div>
         <l-tabs></l-tabs>
 
-        <l-schedule :games="games"></l-schedule> -->
+        <l-schedule :games="games"></l-schedule>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+
 export default {
     name: 'season',
     computed: {
-        // ...mapState(['history', 'pageActiveTabs']),
-        // selectedTeam() {
-        //     this.pageActiveTabs[this.$route.name];
-        // },
-        // games() {
-        //     return this.history[this.selectedTeam][new Date().getFullYear()];
-        // },
+        ...mapState(['pageActiveTabs']),
+        ...mapGetters(['currentSeasons', 'selectedTabTeam']),
+        games() {
+            const selectedTeamsSchedule = this.currentSeasons?.find((s) => s.team === this.selectedTabTeam);
+            return selectedTeamsSchedule?.games || [];
+        },
     },
 };
 </script>
