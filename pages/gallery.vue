@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div class="page-title">Fotogalerie</div>
         <l-tabs></l-tabs>
 
         <div class="w-full grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">

@@ -1,7 +1,7 @@
 <template>
     <div
         id="app"
-        class="flex flex-col items-center justify-between pt-20 w-screen h-screen text-stone-900 bg-white dark:text-white dark:bg-stone-500"
+        class="flex flex-col items-center justify-between pt-20 w-screen h-screen text-stone-900 bg-white dark:text-white dark:bg-stone-500 select-none"
     >
         <l-header></l-header>
 
@@ -9,11 +9,12 @@
             <nuxt />
         </div>
 
-        <!-- <score-card
+        <score-card
             v-if="selectedGame"
             :game="selectedGame"
             @close="$store.commit('setSelectedGame', null)"
-        ></score-card> -->
+        ></score-card>
+
         <l-footer></l-footer>
     </div>
 </template>
@@ -23,9 +24,22 @@ import { mapState } from 'vuex';
 
 export default {
     name: 'default',
-    // computed: {
-    //     ...mapState(['selectedGame']),
-    // },
+    watch: {
+        $route(r) {
+            this.setCurrentRoute(r);
+        },
+    },
+    computed: {
+        ...mapState(['selectedGame']),
+    },
+    methods: {
+        setCurrentRoute(r) {
+            this.$store.commit('currentRoute', r);
+        },
+    },
+    mounted() {
+        this.setCurrentRoute(this.$route);
+    },
 };
 </script>
 

@@ -11,28 +11,62 @@ export const state = () => ({
         { name: 'FCSS', logo: 'fcss.jpg', roster: {}, id: 1 },
     ],
     pageActiveTabs: {
-        history: 0,
         gallery: 0,
-        season: 0,
+        seasons: 0,
         teams: 0,
     },
     history: [],
     selectedGame: null,
+    currentRoute: null,
 });
 
 export const getters = {
     selectedTabTeam(state) {
-        if (!process.client) return;
-        const routeName = $nuxt.$router?.currentRoute?.name;
+        const routeName = state.currentRoute?.name;
         const selectedTab = state.pageActiveTabs[routeName];
-        return state.ourTeams[selectedTab]?.name || '';
+        return state.ourTeams[selectedTab]?.name || 'Tym A';
     },
-    currentSeasons(state) {
+    // currentSeasonSelectedTeam(state, getters) {
+    //     const dt = new Date();
+    //     const currentYear = dt.getFullYear();
+    //     const currentYearHistory = state.history.find((y) => y.year === currentYear.toString());
+    //     const currentSeasons = currentYearHistory?.schedules;
+
+    //     return currentSeasons.find((s) => s.team === getters.selectedTabTeam);
+    // },
+    upcomingGamesTeamA(state, getters) {
         const dt = new Date();
         const currentYear = dt.getFullYear();
-        const currentYearHistory = state.history.find((y) => y.year === currentYear.toString());
+        const getYearUpcomingGames = (year) => {
+            const history = state.history.find((y) => y.year === year.toString());
+            const schedule = history?.schedules?.find((h) => h.team === 'Tym A');
+            const games = schedule?.games;
+            return games?.filter((g) => new Date(g.date).getTime() > dt.getTime());
+        };
+        let upcomingGames;
 
-        return currentYearHistory?.schedules || [];
+        upcomingGames = getYearUpcomingGames(currentYear);
+        if (!upcomingGames) upcomingGames = getYearUpcomingGames(currentYear + 1);
+
+        if (upcomingGames) {
+            upcomingGames = upcomingGames.filter((g) => g._uid !== getters.nextGame._uid);
+        }
+
+        return upcomingGames;
+    },
+    selectedTabTeamHistory(state, getters) {
+        const team = getters.selectedTabTeam;
+        const teamHistory = [];
+
+        state.history.forEach((h, i) => {
+            let copy = JSON.parse(JSON.stringify(h));
+            if (copy.schedules) {
+                copy.schedules = [copy.schedules.find((z) => z.team === team)];
+            }
+            teamHistory.push(copy);
+        });
+
+        return teamHistory;
     },
     nextGame(state) {
         const dt = new Date();
@@ -57,6 +91,18 @@ export const getters = {
         nextGame = getNextGame(currentYear);
         if (!nextGame) nextGame = getNextGame(currentYear + 1);
 
+        if (nextGame) {
+            nextGame.homeTeam =
+                state.leagueTeams[state.leagueTeams.findIndex((x) => x.id === parseInt(nextGame.homeTeamId))];
+            nextGame.awayTeam =
+                state.leagueTeams[state.leagueTeams.findIndex((x) => x.id === parseInt(nextGame.awayTeamId))];
+            if (nextGame.date) {
+                const ndt = new Date(nextGame.date);
+                nextGame.gameTime = ndt.getHours() + ':' + ndt.getMinutes();
+                nextGame.gameDay = ndt.toLocaleDateString();
+            }
+        }
+
         return nextGame;
     },
 };
@@ -74,6 +120,9 @@ export const mutations = {
     },
     setHistory(state, h) {
         state.history = h;
+    },
+    currentRoute(state, route) {
+        state.currentRoute = route;
     },
 };
 

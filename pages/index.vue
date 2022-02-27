@@ -1,31 +1,26 @@
 <template>
     <div class="">
-        <component :blok="story.content" :is="story.content.component" class="text-black"></component>
-        <!-- <l-schedule :games="upcomingGames" :clickable="false"></l-schedule> -->
+        <component :blok="story.content" :is="story.content.component"></component>
+        <l-schedule
+            v-if="upcomingGamesTeamA && upcomingGamesTeamA.length"
+            :games="upcomingGamesTeamA"
+            :clickable="false"
+        ></l-schedule>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'Home',
     data() {
         return {
             story: { content: {} },
-            game: {
-                date: new Date(2022, 9, 25, 15, 45, 0),
-                homeTeamId: 0,
-                awayTeamId: 1,
-                score: { homeTeam: 0, awayTeam: 0 },
-                description: '',
-            },
         };
     },
     computed: {
-        // ...mapState(['history']),
-        // upcomingGames() {
-        //     return this.history['A'][new Date().getFullYear()];
-        // },
+        ...mapGetters(['upcomingGamesTeamA']),
     },
     mounted() {
         this.$storybridge(
@@ -51,13 +46,12 @@ export default {
         );
     },
     async asyncData(ctx) {
-        // const fullSlug = ctx.route.path === '/' || ctx.route.path === '' ? 'home' : ctx.route.path;
-        // const result = await ctx.app.$storyapi.get(`cdn/stories/${fullSlug}`, {
-        //     version: 'draft',
-        // });
-        // if (result?.data) {
-        //     return result.data;
-        // }
+        const result = await ctx.app.$storyapi.get('cdn/stories/home', {
+            version: 'draft',
+        });
+        if (result?.data) {
+            return result.data;
+        }
     },
 };
 </script>

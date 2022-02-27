@@ -4,8 +4,8 @@
             class="flex items-center justify-center cursor-pointer text-lg w-1/3 py-1 hover:border-b-2 hover:border-green-600 hover:border-opacity-20"
             v-for="(tab, i) in tabs"
             :key="i"
-            :class="{ 'border-b-2 border-green-600 hover:border-opacity-100': i === pageActiveTabs[page] }"
-            @click="onClick(i)"
+            :class="{ 'border-b-2 border-green-600 hover:border-opacity-100': i === pageActiveTabs[$route.name] }"
+            @click="$store.commit('setActiveTab', { page: $route.name, tab: i })"
         >
             {{ tab }}
         </li>
@@ -18,19 +18,11 @@ export default {
     name: 'LTabs',
     data() {
         return {
-            tabs: ['Tým A', 'Tým B', 'Juniors'],
+            tabs: ['Tým A', 'Tým B', 'Tym dorost'],
         };
     },
     computed: {
         ...mapState(['pageActiveTabs']),
-        page() {
-            return this.$route.name;
-        },
-    },
-    methods: {
-        onClick(i) {
-            this.$store.commit('setActiveTab', { page: this.page, tab: i });
-        },
     },
 };
 </script>

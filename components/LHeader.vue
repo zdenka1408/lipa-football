@@ -5,12 +5,12 @@
         </nuxt-link>
         <div class="flex items-center h-full max-h-20 my-0 mx-5">
             <nav
-                v-if="!isMobile() || menuOpened"
+                v-if="!$isMobile() || menuOpened"
                 class="fixed top-20 left-0 w-full h-full lg:relative lg:top-auto lg:left-auto lg:w-auto"
             >
                 <transition name="slide-down">
                     <ul
-                        v-show="!isMobile() || ulOpened"
+                        v-show="!$isMobile() || ulOpened"
                         class="bg-stone-800 h-auto absolute left-0 right-0 z-40 py-5 lg:flex lg:py-0 lg:h-full lg:relative lg:left-auto lg:right-auto"
                         @click="openMenu"
                     >
@@ -36,7 +36,7 @@
                 </transition>
             </nav>
 
-            <div v-if="isMobile()" class="cursor-pointer py-4 px-2.5" @click="openMenu">
+            <div v-if="$isMobile()" class="cursor-pointer py-4 px-2.5" @click="openMenu">
                 <base-icon iconName="MenuIcon" iconColor="#ffffff" height="32" width="32">
                     <menu-icon></menu-icon>
                 </base-icon>
@@ -47,20 +47,17 @@
 
 <script>
 import MenuIcon from '@/components/icons/MenuIcon';
-import helpers from '@/helpers';
 
 export default {
     name: 'LHeader',
-    mixins: [helpers],
     components: { MenuIcon },
     data() {
         return {
             menuItems: [
                 { name: 'Home', url: '/' },
-                { name: 'Sezóna', url: '/season' },
-                { name: 'Fotogalerie', url: '/gallery' },
+                { name: 'Sezóny', url: '/seasons' },
                 { name: 'Týmy', url: '/teams' },
-                { name: 'Historie', url: '/history' },
+                { name: 'Fotogalerie', url: '/gallery' },
             ],
             menuOpened: false,
             ulOpened: false,
@@ -69,7 +66,7 @@ export default {
     },
     methods: {
         openMenu() {
-            if (this.inTransition || !this.isMobile()) return;
+            if (this.inTransition || !this.$isMobile()) return;
             this.inTransition = true;
 
             if (this.menuOpened) {
