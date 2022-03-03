@@ -6,20 +6,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
     name: 'gallery',
     data() {
         return {
             story: { content: {} },
         };
-    },
-    computed: {
-        ...mapGetters(['selectedTabTeam']),
-        selectedTeamAlbums() {
-            return [];
-        },
     },
     mounted() {
         this.$storybridge(
