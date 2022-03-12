@@ -34,7 +34,7 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         [
-            '@storyblok/nuxt',
+            '@storyblok/nuxt/module',
             {
                 accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
                 cacheProvider: 'memory',

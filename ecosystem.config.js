@@ -11,9 +11,5 @@ module.exports = {
                 NODE_ENV: 'production',
             },
         },
-        {
-            name: 'worker',
-            script: 'sw.js',
-        },
     ],
 };
