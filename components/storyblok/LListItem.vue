@@ -8,7 +8,7 @@
     >
         <div class="flex items-center w-1/3 justify-start team team--home">
             <img class="w-10 h-10" :src="require('@/assets/images/teams/' + homeTeam.logo)" alt="home team logo" />
-            <span class="text-lg my-0 mx-3.5" v-if="!$isMobile()">{{ homeTeam.name }}</span>
+            <span class="text-lg my-0 mx-3.5" v-if="!isMobile">{{ homeTeam.name }}</span>
         </div>
         <div class="flex flex-col items-center w-2/5 font-semibold stats">
             <div class="text-lg flex flex-col items-center w-2/5 stats__score" v-if="!isFutureGame">
@@ -17,7 +17,7 @@
             <div class="text-lg flex flex-col items-center w-2/5 stats__date">{{ $prettyDate(game.date) }}</div>
         </div>
         <div class="flex items-center w-1/3 justify-end team team--away">
-            <span class="text-lg my-0 mx-3.5" v-if="!$isMobile()">{{ awayTeam.name }}</span>
+            <span class="text-lg my-0 mx-3.5" v-if="!isMobile">{{ awayTeam.name }}</span>
             <img class="w-10 h-10" :src="require('@/assets/images/teams/' + awayTeam.logo)" alt="away team logo" />
         </div>
     </li>
@@ -42,6 +42,9 @@ export default {
         },
         isFutureGame() {
             return new Date().getTime() - new Date(this.game.date).getTime() < 0;
+        },
+        isMobile() {
+            return this.$device.isMobileOrTablet;
         },
     },
 };

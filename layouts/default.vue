@@ -1,7 +1,12 @@
 <template>
     <div
         id="app"
-        class="flex flex-col items-center justify-between pt-20 w-screen h-screen text-stone-900 bg-white dark:text-white dark:bg-stone-500 select-none"
+        :class="`
+            flex flex-col items-center justify-between 
+            pt-20 w-full min-h-screen
+            text-stone-900 bg-white dark:text-white dark:bg-stone-500
+            select-none overflow-x-hidden
+        `"
     >
         <l-header></l-header>
 
@@ -46,6 +51,13 @@ export default {
 <style>
 :root {
     --main-color: '#00a14f';
+}
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
 .slide-down-enter-active,

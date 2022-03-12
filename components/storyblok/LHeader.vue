@@ -1,16 +1,16 @@
 <template>
-    <header class="bg-stone-800 text-white flex fixed items-center justify-between top-0 left-0 w-full h-20 z-40">
+    <header class="bg-stone-800 text-white flex fixed items-center justify-between top-0 left-0 right-0 h-20 z-40">
         <nuxt-link to="/" class="flex items-center h-full max-h-20 my-0 mx-5 z-40 mt-5">
             <img src="@/assets/images/logo.png" alt="logo" height="90" width="90" />
         </nuxt-link>
         <div class="flex items-center h-full max-h-20 my-0 mx-5">
             <nav
-                v-if="!$isMobile() || menuOpened"
+                v-if="!isMobile || menuOpened"
                 class="fixed top-20 left-0 w-full h-full lg:relative lg:top-auto lg:left-auto lg:w-auto"
             >
                 <transition name="slide-down">
                     <ul
-                        v-show="!$isMobile() || ulOpened"
+                        v-show="!isMobile || ulOpened"
                         class="bg-stone-800 h-auto absolute left-0 right-0 z-40 py-5 lg:flex lg:py-0 lg:h-full lg:relative lg:left-auto lg:right-auto"
                         @click="openMenu"
                     >
@@ -36,7 +36,7 @@
                 </transition>
             </nav>
 
-            <div v-if="$isMobile()" class="cursor-pointer py-4 px-2.5" @click="openMenu">
+            <div v-if="isMobile" class="cursor-pointer py-4 px-2.5" @click="openMenu">
                 <base-icon iconName="MenuIcon" iconColor="#ffffff" height="32" width="32">
                     <menu-icon></menu-icon>
                 </base-icon>
@@ -64,9 +64,14 @@ export default {
             inTransition: false,
         };
     },
+    computed: {
+        isMobile() {
+            return this.$device.isMobileOrTablet;
+        },
+    },
     methods: {
         openMenu() {
-            if (this.inTransition || !this.$isMobile()) return;
+            if (this.inTransition || !this.isMobile) return;
             this.inTransition = true;
 
             if (this.menuOpened) {

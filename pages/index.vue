@@ -1,6 +1,7 @@
 <template>
-    <div class="">
+    <div class="h-full">
         <StoryblokComponent v-if="story" :blok="story.content" />
+        <div v-if="isMobile" class="h-1/2">j</div>
         <l-schedule
             v-if="upcomingGamesTeamA && upcomingGamesTeamA.length"
             :games="upcomingGamesTeamA"
@@ -17,6 +18,9 @@ export default {
     name: 'Home',
     computed: {
         ...mapGetters(['upcomingGamesTeamA']),
+        isMobile() {
+            return this.$device.isMobileOrTablet;
+        },
     },
     mounted() {
         useStoryblokBridge(this.story.id, (newStory) => (this.story = newStory));

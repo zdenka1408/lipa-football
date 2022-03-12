@@ -30,12 +30,13 @@ export default {
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
         '@nuxt/postcss8',
+        '@nuxtjs/device',
         [
             '@storyblok/nuxt/module',
             {
                 accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
                 bridge: true,
-                apiOptions: {}, // storyblok-js-client options
+                apiOptions: {},
                 useApiClient: true,
             },
         ],
@@ -56,7 +57,7 @@ export default {
     pwa: {
         manifest: {
             lang: 'en',
-            theme_color: '#15803d',
+            theme_color: '#00a14f',
         },
     },
 
