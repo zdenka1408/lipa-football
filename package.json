@@ -1,7 +1,8 @@
 {
-  "name": "lipa-football",
+  "name": "sokollipa",
   "version": "1.0.0",
   "private": true,
+  "author": "Marcus Wiseman",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

@@ -49,9 +49,7 @@ export default {
     pwa: {
         manifest: {
             lang: 'en',
-        },
-        workboxOptions: {
-            exclude: ['_redirects'],
+            theme_color: '#15803d',
         },
     },
 
