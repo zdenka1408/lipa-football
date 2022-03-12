@@ -50,6 +50,9 @@ export default {
         manifest: {
             lang: 'en',
         },
+        workboxOptions: {
+            exclude: ['_redirects'],
+        },
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
