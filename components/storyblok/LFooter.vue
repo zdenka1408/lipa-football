@@ -4,7 +4,7 @@
             <img src="@/assets/images/logo.png" alt="logo" height="120" width="120" />
         </nuxt-link>
 
-        <div class="text-lg mb-5">&copy; {{ new Date().getFullYear() }} by Zdenka Wiseman</div>
+        <div class="text-lg mb-5">&copy; {{ new Date().getFullYear() }} by Marcus Wiseman</div>
     </footer>
 </template>
 
