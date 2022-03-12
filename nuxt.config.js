@@ -1,9 +1,5 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
-    server: {
-        port: 3030,
-    },
-
     head: {
         title: 'lipa-football',
         meta: [
@@ -13,6 +9,10 @@ export default {
             { name: 'format-detection', content: 'telephone=no' },
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    },
+
+    server: {
+        port: 3030,
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
