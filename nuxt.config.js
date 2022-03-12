@@ -25,14 +25,8 @@ export default {
     components: true,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-    buildModules: ['@nuxt/postcss8'],
-
-    // Modules: https://go.nuxtjs.dev/config-modules
-    modules: [
-        // https://go.nuxtjs.dev/axios
-        '@nuxtjs/axios',
-        // https://go.nuxtjs.dev/pwa
-        '@nuxtjs/pwa',
+    buildModules: [
+        '@nuxt/postcss8',
         [
             '@storyblok/nuxt/module',
             {
@@ -40,6 +34,14 @@ export default {
                 cacheProvider: 'memory',
             },
         ],
+    ],
+
+    // Modules: https://go.nuxtjs.dev/config-modules
+    modules: [
+        // https://go.nuxtjs.dev/axios
+        '@nuxtjs/axios',
+        // https://go.nuxtjs.dev/pwa
+        '@nuxtjs/pwa',
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios

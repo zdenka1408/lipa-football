@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <component :blok="story.content" :is="story.content.component"></component>
+        <StoryblokComponent v-if="story" :blok="story.content" />
         <l-schedule
             v-if="upcomingGamesTeamA && upcomingGamesTeamA.length"
             :games="upcomingGamesTeamA"
@@ -11,47 +11,22 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { useStoryblokBridge, useStoryblokApi } from '@storyblok/nuxt';
 
 export default {
     name: 'Home',
-    data() {
-        return {
-            story: { content: {} },
-        };
-    },
     computed: {
         ...mapGetters(['upcomingGamesTeamA']),
     },
     mounted() {
-        this.$storybridge(
-            () => {
-                const storyBlokInstance = new StoryblokBridge();
-
-                storyBlokInstance.on(['input', 'published', 'change'], ($event) => {
-                    if ($event.action === 'input') {
-                        if ($event.story.id === this.story.id) {
-                            this.story.content = $event.story.content;
-                        }
-                    } else {
-                        this.$nuxt.$router.go({
-                            path: this.$nuxt.$router.currentRoute,
-                            force: true,
-                        });
-                    }
-                });
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
+        useStoryblokBridge(this.story.id, (newStory) => (this.story = newStory));
     },
-    async asyncData(ctx) {
-        const result = await ctx.app.$storyapi.get('cdn/stories/home', {
+    async asyncData() {
+        const storyblokApi = useStoryblokApi();
+        const { data } = await storyblokApi.get('cdn/stories/home', {
             version: 'draft',
         });
-        if (result?.data) {
-            return result.data;
-        }
+        return { story: data.story };
     },
 };
 </script>
