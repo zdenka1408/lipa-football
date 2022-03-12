@@ -15,6 +15,9 @@ export default {
         port: 3030,
     },
 
+    // Nuxt collect anonymous data
+    telemetry: true,
+
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@/assets/css/main.css'],
 
